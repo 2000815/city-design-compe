@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>低速・分散・滞在型都市 ― SHIBUYA HOMETOWN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:   #F8F7F3;
+  --fg:   #1C1C1A;
+  --soft: #5A5A54;
+  --mute: #9A9A92;
+  --line: #DDDDD6;
+  --acc:  #3D6B45;   /* 草木の緑 */
+  --warn: #8B4A2A;   /* 土の赤茶 */
+  --w:    680px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Noto Serif JP", serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 2.0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── layout ── */
+.wrap {
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.full {
+  width: 100%;
+  padding: 0 32px;
+}
+
+section { padding: 96px 0; }
+
+hr { border: none; border-top: 1px solid var(--line); }
+
+/* ── type ── */
+.label {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+}
+
+h3 {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+
+p {
+  color: var(--soft);
+  line-height: 2.0;
+  font-size: 16px;
+}
+
+p + p { margin-top: 20px; }
+
+.big {
+  font-size: clamp(20px, 2.8vw, 26px);
+  line-height: 1.75;
+  color: var(--fg);
+}
+
+.acc  { color: var(--acc); }
+.warn { color: var(--warn); }
+
+/* ── hero ── */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 0 56px;
+}
+
+.hero-top {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mute);
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-main { padding: 80px 0 64px; }
+
+.hero-main h1 { margin-bottom: 40px; }
+
+.hero-main .sub {
+  font-size: 19px;
+  color: var(--soft);
+  line-height: 1.9;
+  max-width: 520px;
+  font-family: "Noto Serif JP", serif;
+}
+
+.hero-five {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 48px;
+}
+
+.hero-five span {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--acc);
+  letter-spacing: 0.05em;
+}
+
+.hero-bot {
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+/* ── problem ── */
+.problem-text {
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 64px;
+  border: 1px solid var(--line);
+}
+
+.contrast-col {
+  padding: 40px 36px;
+}
+
+.contrast-col:first-child {
+  border-right: 1px solid var(--line);
+}
+
+.contrast-col .col-label {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.contrast-col:first-child .col-label { color: var(--warn); }
+.contrast-col:last-child  .col-label { color: var(--acc); }
+
+.contrast-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contrast-col li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--soft);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contrast-col li:last-child { border-bottom: none; }
+
+.contrast-col:first-child li strong { color: var(--warn); }
+.contrast-col:last-child  li strong { color: var(--acc); }
+
+/* ── philosophy ── */
+.phil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px 80px;
+  margin-top: 64px;
+}
+
+.phil-item {}
+.phil-item .num {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--mute);
+  margin-bottom: 12px;
+}
+.phil-item h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--fg);
+}
+.phil-item .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.phil-item .tag {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  color: var(--soft);
+  border-radius: 2px;
+}
+
+/* ── pull quote ── */
+.pull-section {
+  background: var(--fg);
+  color: #F8F7F3;
+  padding: 120px 32px;
+}
+
+.pull-section .pull-inner {
+  max-width: var(--w);
+  margin: 0 auto;
+}
+
+.pull-section .label { color: #666660; }
+
+.pull-section blockquote {
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  color: #F8F7F3;
+  margin: 32px 0 0;
+}
+
+.pull-section blockquote .em {
+  color: #A8C89A;
+  font-weight: 500;
+}
+
+/* ── stay core ── */
+.staycore-wrap {
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.staycore-rule {
+  margin: 64px 0;
+  padding: 40px;
+  background: var(--acc);
+  color: #F8F7F3;
+}
+
+.staycore-rule .rule-label {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(248,247,243,0.5);
+  margin-bottom: 16px;
+}
+
+.staycore-rule .rule-main {
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.staycore-rule .rule-list {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(248,247,243,0.75);
+}
+
+/* ── stay core diagram ── */
+.diagram-wrap {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── forbidden ── */
+.forbidden-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 48px;
+  border: 1px solid var(--line);
+}
+
+.forbid {
+  padding: 32px 28px;
+  border-right: 1px solid var(--line);
+}
+
+.forbid:last-child { border-right: none; }
+
+.forbid .f-label {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warn);
+  margin-bottom: 20px;
+}
+
+.forbid ul {
+  list-style: none;
+  padding: 0;
+}
+
+.forbid li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--soft);
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--line);
+}
+
+.forbid li:last-child { border-bottom: none; }
+
+/* ── locations ── */
+.loc-list {
+  margin-top: 48px;
+}
+
+.loc-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+}
+
+.loc-item:last-child { border-bottom: 1px solid var(--line); }
+
+.loc-item .area {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.loc-item .desc {
+  font-size: 15px;
+  color: var(--soft);
+  line-height: 1.75;
+}
+
+/* ── effect timeline ── */
+.effect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 48px;
+  border-top: 2px solid var(--fg);
+}
+
+.effect-col {
+  padding: 36px 32px 36px 0;
+  border-right: 1px solid var(--line);
+}
+
+.effect-col:last-child { border-right: none; padding-right: 0; }
+
+.effect-col .e-label {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 20px;
+}
+
+.effect-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.effect-col li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--soft);
+  padding: 7px 0;
+  border-bottom: 1px dotted var(--line);
+}
+
+.effect-col li:last-child { border-bottom: none; }
+
+/* ── closing ── */
+.closing {
+  padding: 160px 32px 120px;
+  text-align: center;
+}
+
+.closing-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.closing h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  margin-bottom: 0;
+}
+
+.closing h2 .em { color: var(--acc); }
+
+.closing .final {
+  margin-top: 64px;
+  font-size: 15px;
+  color: var(--mute);
+  line-height: 2.0;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* ── footer ── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 32px;
+  text-align: center;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+/* ── mobile ── */
+@media (max-width: 720px) {
+  .contrast,
+  .phil-grid { grid-template-columns: 1fr; }
+  .contrast-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+  .forbidden-grid { grid-template-columns: 1fr; }
+  .forbid { border-right: none; border-bottom: 1px solid var(--line); }
+  .forbid:last-child { border-bottom: none; }
+  .effect-grid { grid-template-columns: 1fr; }
+  .effect-col { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 0; }
+  .loc-item { grid-template-columns: 1fr; gap: 8px; }
+  .hero-five { gap: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================== HERO ======================================== -->
+<section class="hero">
+  <div class="wrap">
+
+    <div class="hero-top">
+      <span>VCDC 2026 — Exit of Dystopia #2</span>
+      <span>渋谷区</span>
+    </div>
+
+    <div class="hero-main">
+      <h1>
+        低速・分散・滞在型都市<br>
+        <span style="font-weight:300; color:var(--soft)">— Slow, Dispersed, Staying City —</span>
+      </h1>
+
+      <p class="sub">
+        高さを降りる。速度を落とす。<br>
+        生活を取り戻す。滞在を回復する。<br>
+        街を、消費対象から居場所へ戻す。
+      </p>
+
+      <div class="hero-five">
+        <span>高さを降りる</span>
+        <span>速度を落とす</span>
+        <span>生活を取り戻す</span>
+        <span>滞在を回復する</span>
+        <span>街を居場所へ</span>
+      </div>
+    </div>
+
+    <div class="hero-bot">
+      <span>SHIBUYA HOMETOWN</span>
+      <span>Draft v0.1</span>
+    </div>
+
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== 背景課題 ======================================== -->
+<section>
+  <div class="problem-text">
+    <div class="label">背景課題</div>
+    <h2>今の都市は、<br>人が「流れる」ことを求める。</h2>
+
+    <p class="big">
+      渋谷・東京型の都市では、<strong>人が流れること、回転率を上げること、消費を最大化すること</strong>が優先されている。<br>
+      その結果、街から何かが消えていった。
+    </p>
+
+    <div class="contrast">
+      <div class="contrast-col">
+        <div class="col-label">消えていったもの</div>
+        <ul>
+          <li><strong>ベンチ</strong>が消え、座れなくなった</li>
+          <li><strong>滞在空間</strong>が減り、佇めなくなった</li>
+          <li><strong>個人店</strong>が消え、顔が見えなくなった</li>
+          <li><strong>地域性</strong>が失われ、どこも同じになった</li>
+          <li><strong>生活感</strong>が希薄になり、人が見えなくなった</li>
+          <li>街が<strong>「イベント会場化」</strong>した</li>
+        </ul>
+      </div>
+      <div class="contrast-col">
+        <div class="col-label">本来あるべきもの</div>
+        <ul>
+          <li><strong>立ち止まれる</strong>街</li>
+          <li><strong>座れる・話せる</strong>空間</li>
+          <li><strong>偶然が起こる</strong>路地</li>
+          <li><strong>顔の見える</strong>距離感</li>
+          <li><strong>用事がなくていい</strong>場所</li>
+          <li>生きることが<strong>そのまま</strong>街になる</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== 都市思想 ======================================== -->
+<section>
+  <div class="wrap">
+    <div class="label">都市思想</div>
+    <h2>4 つの方向へ、<br>都市を戻す。</h2>
+
+    <div class="phil-grid">
+
+      <div class="phil-item">
+        <div class="num">01</div>
+        <h3>低速化</h3>
+        <p>都市を「移動効率」ではなく、<strong style="color:var(--acc)">「滞在価値」</strong>で再設計する。立ち止まれる、座れる、話せる、偶然が起こる、身体感覚を回復する都市を作る。</p>
+        <div class="tags">
+          <span class="tag">立ち止まれる</span>
+          <span class="tag">座れる</span>
+          <span class="tag">偶然が起こる</span>
+          <span class="tag">身体感覚</span>
+        </div>
+      </div>
+
+      <div class="phil-item">
+        <div class="num">02</div>
+        <h3>低層化</h3>
+        <p>高層ビル中心ではなく、<strong style="color:var(--acc)">路面・1 階・歩行距離・顔の見える距離</strong>に価値を戻す。地面へ人を戻し、街路を生活空間にする。</p>
+        <div class="tags">
+          <span class="tag">1 階の価値</span>
+          <span class="tag">路面</span>
+          <span class="tag">地域経済</span>
+          <span class="tag">顔の見える距離</span>
+        </div>
+      </div>
+
+      <div class="phil-item">
+        <div class="num">03</div>
+        <h3>分散化</h3>
+        <p>東京への機能集中を減らし、地域ごとの都市価値を育てる。<strong style="color:var(--acc)">小規模拠点の分散配置、小商い中心、地域単位での自立性</strong>を高める。</p>
+        <div class="tags">
+          <span class="tag">小規模拠点</span>
+          <span class="tag">小商い</span>
+          <span class="tag">ローカル産業</span>
+          <span class="tag">地域自立</span>
+        </div>
+      </div>
+
+      <div class="phil-item">
+        <div class="num">04</div>
+        <h3>身体化</h3>
+        <p>AI・オンライン化が進む時代だからこそ、<strong style="color:var(--acc)">歩く・座る・作る・食べる・話す・触れる</strong>という身体的経験に価値を戻す。</p>
+        <div class="tags">
+          <span class="tag">歩く</span>
+          <span class="tag">座る</span>
+          <span class="tag">作る</span>
+          <span class="tag">話す</span>
+          <span class="tag">触れる</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================== PULL ======================================== -->
+<section class="pull-section">
+  <div class="pull-inner">
+    <div class="label">最終思想</div>
+    <blockquote>
+      都市とは、<br>
+      消費する場所ではなく、<br>
+      <span class="em">生きる場所</span>である。
+    </blockquote>
+  </div>
+</section>
+
+
+<!-- ======================================== 滞在核 ======================================== -->
+<section>
+  <div class="staycore-wrap">
+    <div class="label">提案建築</div>
+    <h2>滞在核 — Stay Core</h2>
+
+    <p class="big">
+      商業施設でも、公共施設でも、再開発タワーでもない。<br>
+      <strong>「無料で居られる都市の余白」</strong>を、街の中に点在させる。
+    </p>
+
+    <div class="staycore-rule">
+      <div class="rule-label">最重要ルール</div>
+      <div class="rule-main">「何もしなくていい」</div>
+      <div class="rule-list">
+        <span>買わなくてもいい</span>
+        <span>長居していい</span>
+        <span>用事がなくていい</span>
+        <span>座るだけでいい</span>
+      </div>
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 600 520" width="100%" style="max-width:600px">
+
+        <!-- outer boundary -->
+        <rect x="40" y="40" width="520" height="440" rx="4"
+              fill="none" stroke="#DDDDD6" stroke-width="1.2"/>
+
+        <!-- center park -->
+        <rect x="200" y="155" width="200" height="200" rx="2"
+              fill="#3D6B45" opacity="0.12"/>
+        <circle cx="300" cy="255" r="55"
+                fill="#3D6B45" opacity="0.15"/>
+
+        <!-- trees in center -->
+        <g fill="none" stroke="#3D6B45" stroke-width="1.2">
+          <circle cx="275" cy="235" r="12"/>
+          <line x1="275" y1="235" x2="275" y2="258"/>
+          <circle cx="325" cy="240" r="10"/>
+          <line x1="325" y1="240" x2="325" y2="258"/>
+          <circle cx="300" cy="222" r="11"/>
+          <line x1="300" y1="222" x2="300" y2="258"/>
+        </g>
+
+        <!-- bench marks -->
+        <g stroke="#5A5A54" stroke-width="1" fill="none">
+          <line x1="255" y1="278" x2="285" y2="278"/>
+          <line x1="260" y1="278" x2="260" y2="284"/>
+          <line x1="280" y1="278" x2="280" y2="284"/>
+          <line x1="315" y1="278" x2="345" y2="278"/>
+          <line x1="320" y1="278" x2="320" y2="284"/>
+          <line x1="340" y1="278" x2="340" y2="284"/>
+        </g>
+
+        <text x="300" y="310" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="11"
+              fill="#3D6B45" letter-spacing="2">小さな公園・木陰・ベンチ</text>
+
+        <!-- surrounding shops — top -->
+        <rect x="180" y="62" width="240" height="64" rx="2"
+              fill="none" stroke="#DDDDD6" stroke-width="1"/>
+        <text x="300" y="90" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">喫茶店　本屋</text>
+        <text x="300" y="112" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="10"
+              fill="#9A9A92" letter-spacing="1.5">CAFÉ · BOOKSHOP</text>
+
+        <!-- surrounding shops — bottom -->
+        <rect x="180" y="394" width="240" height="64" rx="2"
+              fill="none" stroke="#DDDDD6" stroke-width="1"/>
+        <text x="300" y="422" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">地域食堂　パン屋</text>
+        <text x="300" y="444" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="10"
+              fill="#9A9A92" letter-spacing="1.5">DINER · BAKERY</text>
+
+        <!-- surrounding shops — left -->
+        <rect x="48" y="175" width="120" height="160" rx="2"
+              fill="none" stroke="#DDDDD6" stroke-width="1"/>
+        <text x="108" y="246" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">修理屋</text>
+        <text x="108" y="266" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">工房</text>
+        <text x="108" y="288" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="10"
+              fill="#9A9A92" letter-spacing="1.5">REPAIR · ATELIER</text>
+
+        <!-- surrounding shops — right -->
+        <rect x="432" y="175" width="120" height="160" rx="2"
+              fill="none" stroke="#DDDDD6" stroke-width="1"/>
+        <text x="492" y="246" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">八百屋</text>
+        <text x="492" y="266" text-anchor="middle"
+              font-family="Noto Serif JP" font-size="13" fill="#5A5A54">ギャラリー</text>
+        <text x="492" y="288" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="10"
+              fill="#9A9A92" letter-spacing="1.5">GREENGROCER · GALLERY</text>
+
+        <!-- connecting paths -->
+        <g stroke="#DDDDD6" stroke-width="0.8" stroke-dasharray="3 4">
+          <line x1="300" y1="126" x2="300" y2="155"/>
+          <line x1="300" y1="355" x2="300" y2="394"/>
+          <line x1="168" y1="255" x2="200" y2="255"/>
+          <line x1="400" y1="255" x2="432" y2="255"/>
+        </g>
+
+        <!-- center label -->
+        <text x="300" y="186" text-anchor="middle"
+              font-family="Noto Sans JP" font-size="10"
+              fill="#3D6B45" letter-spacing="2" font-weight="500">STAY CORE</text>
+
+      </svg>
+    </div>
+
+    <p style="margin-top:40px">
+      中央には屋根付き半外部空間と緑。周囲には小規模なローカル店舗。大型チェーンは入れない。何かを買わなくても、長く居ていい。それだけを、強く保証する空間。
+    </p>
+
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== 禁止事項 ======================================== -->
+<section>
+  <div class="wrap">
+    <div class="label">禁止事項</div>
+    <h2>この街で、<br>してはいけないこと。</h2>
+    <p>仕様書ではなく、思想として。禁止は、設計の哲学を示す。</p>
+
+    <div class="forbidden-grid">
+      <div class="forbid">
+        <div class="f-label">高速消費化</div>
+        <ul>
+          <li>大型チェーンの独占</li>
+          <li>巨大商業施設化</li>
+          <li>イベントの過密化</li>
+          <li>広告の過剰化</li>
+        </ul>
+      </div>
+      <div class="forbid">
+        <div class="f-label">通過空間化</div>
+        <ul>
+          <li>動線の最適化しすぎ</li>
+          <li>滞在を排除するベンチ</li>
+          <li>回転率重視の設計</li>
+          <li>佇まない空間</li>
+        </ul>
+      </div>
+      <div class="forbid">
+        <div class="f-label">高層化依存</div>
+        <ul>
+          <li>タワー型再開発</li>
+          <li>空中動線中心設計</li>
+          <li>地面を車に渡す</li>
+          <li>地上から人を切り離す</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== 配置エリア ======================================== -->
+<section>
+  <div class="wrap">
+    <div class="label">想定配置エリア</div>
+    <h2>都市と住宅の<br>グラデーション地帯に置く。</h2>
+    <p>駅前の再開発地ではなく、すでに生活が根付いている場所から始める。</p>
+
+    <div class="loc-list">
+      <div class="loc-item">
+        <div class="area">幡ヶ谷</div>
+        <div class="desc">商店街と住宅が交差する、生活密度の高い地帯。個人店がまだ残る。</div>
+      </div>
+      <div class="loc-item">
+        <div class="area">富ヶ谷</div>
+        <div class="desc">小道と坂道が入り組む、低層住宅と小さな店の混在地帯。</div>
+      </div>
+      <div class="loc-item">
+        <div class="area">西原</div>
+        <div class="desc">観光化されていない、静かな住宅街。日常の密度がある。</div>
+      </div>
+      <div class="loc-item">
+        <div class="area">代々木上原周辺</div>
+        <div class="desc">駅と住宅地の境界。個人飲食店と商店街が共存する。</div>
+      </div>
+      <div class="loc-item">
+        <div class="area">代々木八幡周辺</div>
+        <div class="desc">神社と低層建築が残る。観光化と生活が拮抗しているエリア。</div>
+      </div>
+    </div>
+
+    <p style="margin-top:40px">
+      これらのエリアは、再開発によって「消えかけている」ところではなく、<strong>まだ守れる</strong>ところ。滞在核は、まずここに根を下ろす。
+    </p>
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== 効果 ======================================== -->
+<section>
+  <div class="wrap">
+    <div class="label">都市への効果</div>
+    <h2>時間をかけて、<br>街は変わる。</h2>
+
+    <div class="effect-grid">
+      <div class="effect-col">
+        <div class="e-label">短期</div>
+        <ul>
+          <li>滞在時間の増加</li>
+          <li>歩行量の増加</li>
+          <li>地域との接触増加</li>
+          <li>孤立感の低下</li>
+        </ul>
+      </div>
+      <div class="effect-col">
+        <div class="e-label">中期</div>
+        <ul>
+          <li>個人店の維持・増加</li>
+          <li>地域経済の循環</li>
+          <li>地域コミュニティの回復</li>
+          <li>低層化の自然な進行</li>
+        </ul>
+      </div>
+      <div class="effect-col">
+        <div class="e-label">長期</div>
+        <ul>
+          <li>東京一極集中の緩和</li>
+          <li>地域都市への展開</li>
+          <li>分散型都市モデルの形成</li>
+          <li>「人間の速度」の都市の定着</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+
+<!-- ======================================== CLOSING ======================================== -->
+<section class="closing">
+  <div class="closing-inner">
+
+    <div class="label" style="text-align:center">この都市が目指すもの</div>
+
+    <h2>
+      巨大再開発による未来都市ではない。<br>
+      むしろ逆に、<br>
+      <span class="em">人間の速度へ戻る都市</span>を目指す。
+    </h2>
+
+    <div class="final">
+      都市とは、消費する場所ではなく、<br>
+      生きる場所である。
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  VCDC 2026 · SHIBUYA HOMETOWN · 低速・分散・滞在型都市 · Draft v0.1
+</footer>
+
+</body>
+</html>
